@@ -1,7 +1,8 @@
-package com.oauth2.server.oauth2example.controller;
+package com.oauth2.server.example.controller;
 
-import com.oauth2.server.oauth2example.dto.TokenExchangeDto;
-import com.oauth2.server.oauth2example.service.OauthService;
+import com.oauth2.server.example.dto.TokenExchangeDto;
+import com.oauth2.server.example.exception.AuthorizationException;
+import com.oauth2.server.example.service.OauthService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,14 +22,14 @@ public class TokenExchangeController {
         if (tokenExchangeDto.getGrant_type().equalsIgnoreCase("authorization_code")) {
             Map<String, Object> tokens = oauthService.generateResponseContainingRefreshAndAccessTokens(
                     tokenExchangeDto.getCode(),
-                    tokenExchangeDto.getClient_id());
+                    tokenExchangeDto.getUserId());
             return ResponseEntity.ok(tokens);
         } else if (tokenExchangeDto.getGrant_type().equalsIgnoreCase("refresh_token")) {
             Map<String, Object> token = oauthService.generateResponseContainingAccessToken(
-                    tokenExchangeDto.getRefresh_token(), tokenExchangeDto.getClient_id());
+                    tokenExchangeDto.getRefresh_token(), tokenExchangeDto.getUserId());
             return ResponseEntity.ok(token);
         } else {
-            throw new RuntimeException("Where is unsupported grant type");
+            throw new AuthorizationException("There is unsupported grant type");
         }
     }
 }

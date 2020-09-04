@@ -1,4 +1,4 @@
-package com.oauth2.server.oauth2example;
+package com.oauth2.server.example;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
