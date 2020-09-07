@@ -30,7 +30,7 @@ public class AuthorizationController {
     public String authorizePost(@ModelAttribute(name = "loginFormDto") LoginFormDto loginFormDto) {
         oauthService.verifyUser(loginFormDto.getUserId());
         if (loginFormDto.getRedirectUri() != null) {
-            return "redirect:" + "http://localhost:8080/" + loginFormDto.getRedirectUri();
+            return "redirect:" + "http://oauth2-example.herokuapp.com/" + loginFormDto.getRedirectUri();
         }
         return "login";
     }
