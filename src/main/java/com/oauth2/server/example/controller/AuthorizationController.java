@@ -4,6 +4,7 @@ import com.oauth2.server.example.dto.AuthorizationDto;
 import com.oauth2.server.example.dto.LoginFormDto;
 import com.oauth2.server.example.exception.ExceptionInfo;
 import com.oauth2.server.example.service.OauthService;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,7 @@ public class AuthorizationController {
         return "login";
     }
 
-    @PostMapping("/authorize")
+    @PostMapping(value = {"/authorize"}, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String authorizePost(@ModelAttribute(name = "loginFormDto") LoginFormDto loginFormDto) {
         oauthService.verifyUser(loginFormDto.getUserId());
         if (loginFormDto.getRedirectUri() != null) {
