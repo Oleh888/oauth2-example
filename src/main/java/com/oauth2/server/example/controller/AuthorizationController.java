@@ -33,6 +33,12 @@ public class AuthorizationController {
             errorInfo.setErrorMsg("Please fill all fields");
             return "login";
         }
-        return "index";
+        return "redirect https://oauth2-example.herokuapp.com/" + loginFormDto.getRedirectUri();
+    }
+
+    @GetMapping("/auth-code")
+    @ResponseBody
+    public String authorizationCode() {
+        return "authorization code";
     }
 }
