@@ -26,14 +26,12 @@ public class AuthorizationController {
     }
 
     @PostMapping("/authorize")
-    public String authorizePost(@ModelAttribute(name = "loginFormDto") LoginFormDto loginFormDto, BindingResult bindingResult) {
+    public String authorizePost(@ModelAttribute(name = "loginFormDto") LoginFormDto loginFormDto) {
         oauthService.verifyUser(loginFormDto.getUserId());
-        if (bindingResult.hasErrors()) {
-            ExceptionInfo errorInfo = new ExceptionInfo();
-            errorInfo.setErrorMsg("Please fill all fields");
-            return "login";
+        if (loginFormDto.getRedirectUri() != null) {
+            return "redirect:" + "https://oauth2-example.herokuapp.com/" + loginFormDto.getRedirectUri();
         }
-        return "redirect https://oauth2-example.herokuapp.com/" + loginFormDto.getRedirectUri();
+        return "login";
     }
 
     @GetMapping("/auth-code")
