@@ -19,7 +19,7 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
     protected void doFilterInternal(HttpServletRequest req,
                                     HttpServletResponse res,
                                     FilterChain chain) throws IOException, ServletException {
-        String header = req.getHeader("access_token");
+        String header = req.getHeader("Access_token");
         if (!header.equals("this is access_token")) {
             throw new AuthenticationException("Access-token is not valid");
         }
