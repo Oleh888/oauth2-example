@@ -5,7 +5,9 @@ import com.oauth2.server.example.exception.AuthorizationException;
 import com.oauth2.server.example.service.OauthService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
@@ -31,5 +33,11 @@ public class TokenExchangeController {
         } else {
             throw new AuthorizationException("There is unsupported grant type");
         }
+    }
+
+    @GetMapping("/test-token")
+    @ResponseBody
+    public String testToken() {
+        return "You have been authorized with token!";
     }
 }
