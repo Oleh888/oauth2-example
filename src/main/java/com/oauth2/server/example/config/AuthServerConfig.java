@@ -29,7 +29,7 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
         clients.inMemory()
                 .withClient(ClientID)
                 .secret(ClientSecret)
-                .authorizedGrantTypes("code")
+                .authorizedGrantTypes("authorization_code")
                 .scopes("user_info");
     }
 }
