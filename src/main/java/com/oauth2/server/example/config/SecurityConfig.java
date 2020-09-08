@@ -10,9 +10,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
-                .addFilter(new AuthorizationFilter(authenticationManager()))
                 .authorizeRequests()
                 .antMatchers("/authorize/**", "/token/**").permitAll()
-                .anyRequest().authenticated();
+                .and().addFilter(new AuthorizationFilter(authenticationManager()));
     }
 }
