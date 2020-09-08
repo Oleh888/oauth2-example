@@ -25,11 +25,10 @@ public class AuthorizationController {
     }
 
     @PostMapping(value = {"/authorize"}, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String authorizePost(LoginFormDto loginFormDto, HttpServletResponse response) throws IOException {
+    public void authorizePost(LoginFormDto loginFormDto, HttpServletResponse response) throws IOException {
         oauthService.verifyUser(loginFormDto.getUserId());
         if (loginFormDto.getRedirectUri() != null) {
             response.sendRedirect(loginFormDto.getRedirectUri() + "?code=authorization_code");
         }
-        return "login";
     }
 }
