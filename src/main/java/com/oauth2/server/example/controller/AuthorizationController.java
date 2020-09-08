@@ -32,10 +32,4 @@ public class AuthorizationController {
         }
         return "login";
     }
-
-    @GetMapping("/auth-code")
-    @ResponseBody
-    public String authorizationCode() {
-        return "authorization_code";
-    }
 }

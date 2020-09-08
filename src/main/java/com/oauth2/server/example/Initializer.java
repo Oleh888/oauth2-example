@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Initializer implements CommandLineRunner {
     private final static Long TOKEN_EXPIRATION_TIME = 3600L;
-    private final static String REDIRECT_URL = "auth-code";
+    private final static String REDIRECT_URL = "https://oauth2-example.herokuapp.com/";
     private final UserService userService;
 
     public Initializer(UserService userService) {
