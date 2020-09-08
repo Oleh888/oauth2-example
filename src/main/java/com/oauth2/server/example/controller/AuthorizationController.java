@@ -9,6 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
 @Controller
 public class AuthorizationController {
     private final OauthService oauthService;
@@ -27,10 +30,10 @@ public class AuthorizationController {
     }
 
     @PostMapping(value = {"/authorize"}, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String authorizePost(@ModelAttribute(name = "loginFormDto") LoginFormDto loginFormDto) {
+    public String authorizePost(@ModelAttribute(name = "loginFormDto") LoginFormDto loginFormDto, HttpServletResponse response) throws IOException {
         oauthService.verifyUser(loginFormDto.getUserId());
         if (loginFormDto.getRedirectUri() != null) {
-            return "redirect:" + "http://oauth2-example.herokuapp.com/" + loginFormDto.getRedirectUri();
+            response.sendRedirect(loginFormDto.getRedirectUri() + "?code=authorization_code");
         }
         return "login";
     }
@@ -38,6 +41,6 @@ public class AuthorizationController {
     @GetMapping("/auth-code")
     @ResponseBody
     public String authorizationCode() {
-        return "authorization code";
+        return "authorization_code";
     }
 }
