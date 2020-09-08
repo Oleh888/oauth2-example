@@ -5,10 +5,8 @@ import com.oauth2.server.example.exception.AuthorizationException;
 import com.oauth2.server.example.service.OauthService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.Map;
 
 @RestController
@@ -37,7 +35,10 @@ public class TokenExchangeController {
 
     @GetMapping("/test-token")
     @ResponseBody
-    public String testToken() {
+    public String testToken(@RequestHeader(value = "access_token") String accessToken) {
+        if (!accessToken.equals("this is access_token")) {
+            throw new AuthorizationException("Access token " + accessToken + " is not valid!");
+        }
         return "You have been authorized with token!";
     }
 }
